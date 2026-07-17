@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 — 2026-07-17
+- Hide self-transitions (e.g. New → New) from the list; a status change to the
+  same status never happens, so the checkbox was meaningless.
+- Statuses and transitions are read live from the database, so newly added
+  statuses/transitions appear automatically.
+
 ## 0.1.1 — 2026-07-17
 - Clearer wording: the transition mode is now labelled "Comments + selected
   status transitions" to make explicit that comments always notify (behaviour

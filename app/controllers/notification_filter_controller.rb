@@ -36,7 +36,8 @@ class NotificationFilterController < ApplicationController
               .distinct.pluck(:old_status_id, :new_status_id)
               .map { |o, n| "#{o}:#{n}" }.to_set
     @groups = @statuses.map do |from|
-      tos = @statuses.select { |to| valid.include?("#{from.id}:#{to.id}") }
+      # samoprechody (New→New) preskakujeme — nikdy nevytvoria zmenu stavu
+      tos = @statuses.select { |to| to.id != from.id && valid.include?("#{from.id}:#{to.id}") }
       [from, tos]
     end.reject { |_, tos| tos.empty? }
     @projects = User.current.projects.active.distinct.to_a.sort_by { |p| p.name.downcase }
