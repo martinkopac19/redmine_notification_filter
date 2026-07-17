@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_notification_filter do
   name 'Redmine Notification Filter'
   author 'Martin Kopáč'
   description 'Per-user and per-project filtering of status-change e-mail notifications by exact transition (from → to). Comments always notify.'
-  version '0.1.0'
+  version '0.1.1'
   url 'https://github.com/martinkopac19/redmine_notification_filter'
   requires_redmine version_or_higher: '5.0'
 
