@@ -1,0 +1,57 @@
+<h2><%= l(:label_notification_filter) %></h2>
+
+<p class="nf-intro"><%= l(:text_notification_filter_intro) %></p>
+
+<%= form_tag({ action: 'update' }, method: :post, id: 'notification-filter-form') do %>
+
+  <fieldset class="box nf-scope">
+    <legend><%= l(:label_nf_global) %></legend>
+    <%= render partial: 'scope',
+               locals: { prefix: '', cfg: @cfg, with_inherit: false } %>
+  </fieldset>
+
+  <h3><%= l(:label_nf_per_project) %></h3>
+  <p class="nf-hint"><%= l(:text_nf_per_project_hint) %></p>
+
+  <% (@cfg['projects'] || {}).each do |pid, pcfg| %>
+    <% project = Project.find_by_id(pid) %>
+    <% next unless project %>
+    <fieldset class="box nf-scope nf-project">
+      <legend>
+        <%= project.name %>
+        <%= button_tag l(:button_delete), type: 'submit', name: 'remove_project_id',
+              value: pid, class: 'nf-remove', formnovalidate: true %>
+      </legend>
+      <%= render partial: 'scope',
+                 locals: { prefix: "projects[#{pid}]", cfg: pcfg, with_inherit: true } %>
+    </fieldset>
+  <% end %>
+
+  <p><%= submit_tag l(:button_save) %></p>
+<% end %>
+
+<%= form_tag({ action: 'update' }, method: :post, class: 'nf-add-form') do %>
+  <fieldset class="box">
+    <legend><%= l(:label_nf_add_project) %></legend>
+    <%= select_tag 'add_project_id',
+          options_for_select(
+            [['— ' + l(:label_nf_choose_project) + ' —', '']] +
+            @projects.reject { |p| (@cfg['projects'] || {}).key?(p.id.to_s) }.map { |p| [p.name, p.id] }
+          ) %>
+    <%= submit_tag l(:label_nf_add_button) %>
+  </fieldset>
+<% end %>
+
+<style>
+  .nf-intro, .nf-hint { color: #515151; max-width: 820px; }
+  .nf-scope legend { font-weight: 600; }
+  .nf-modes label { display: block; margin: 4px 0; }
+  .nf-transitions { margin-top: 10px; padding-left: 10px; border-left: 3px solid #E5E5E5; }
+  .nf-group { margin-bottom: 10px; }
+  .nf-group .nf-from { font-weight: 600; color: #202124; }
+  .nf-group ul { list-style: none; margin: 4px 0 0 16px; padding: 0;
+                 display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2px 16px; }
+  .nf-group li { white-space: nowrap; }
+  .nf-remove { font-size: 0.8em; margin-left: 10px; }
+  .nf-arrow { color: #B2B2B2; }
+</style>

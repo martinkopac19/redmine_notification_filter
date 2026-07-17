@@ -1,0 +1,48 @@
+<%
+  mode_name  = prefix.blank? ? 'mode' : "#{prefix}[mode]"
+  current    = cfg['mode'] || (with_inherit ? 'inherit' : 'all')
+  radio_id   = prefix.blank? ? 'g' : prefix.gsub(/[^a-z0-9]/i, '_')
+%>
+
+<div class="nf-modes">
+  <% if with_inherit %>
+    <label>
+      <%= radio_button_tag mode_name, 'inherit', current == 'inherit', id: "mode_#{radio_id}_inherit" %>
+      <%= l(:label_nf_mode_inherit) %>
+    </label>
+  <% end %>
+  <label>
+    <%= radio_button_tag mode_name, 'all', current == 'all', id: "mode_#{radio_id}_all" %>
+    <%= l(:label_nf_mode_all) %>
+  </label>
+  <label>
+    <%= radio_button_tag mode_name, 'comments_only', current == 'comments_only', id: "mode_#{radio_id}_comments" %>
+    <%= l(:label_nf_mode_comments_only) %>
+  </label>
+  <label>
+    <%= radio_button_tag mode_name, 'transitions', current == 'transitions', id: "mode_#{radio_id}_transitions" %>
+    <%= l(:label_nf_mode_transitions) %>
+  </label>
+</div>
+
+<div class="nf-transitions">
+  <p class="nf-hint"><%= l(:text_nf_transitions_hint) %></p>
+  <% selected = cfg['transitions'] || {} %>
+  <% @groups.each do |from, tos| %>
+    <div class="nf-group">
+      <div class="nf-from"><%= from.name %></div>
+      <ul>
+        <% tos.each do |to| %>
+          <% key = "#{from.id}:#{to.id}" %>
+          <% cb_name = prefix.blank? ? "transitions[#{key}]" : "#{prefix}[transitions][#{key}]" %>
+          <li>
+            <label>
+              <%= check_box_tag cb_name, '1', (selected[key] == true || selected[key] == '1') %>
+              <span class="nf-arrow">→</span> <%= to.name %>
+            </label>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
