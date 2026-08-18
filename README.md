@@ -82,6 +82,8 @@ Stored user preferences are harmless leftovers and can be ignored.
 
 ## License
 
+Copyright (C) 2026 Martin Kopáč
+
 GPL-2.0-or-later, matching Redmine. See [LICENSE](LICENSE).
 
 ## Credits
