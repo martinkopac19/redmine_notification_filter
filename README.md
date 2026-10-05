@@ -1,8 +1,9 @@
 # Redmine Notification Filter
 
-A Redmine plugin that lets **each user** decide which **status-change** e-mail
-notifications they receive — down to the exact transition (from → to) — globally
-and per project. **Comments always notify you**, so you never miss the important stuff.
+A Redmine plugin that lets **each user** decide which task-change notifications
+they receive — down to the exact status transition (from → to) — globally and per
+project. **Comments and changes to the subject or description always notify you**,
+so you never miss the important stuff.
 
 It solves the classic Redmine problem of *notification overload*: dozens of
 "status changed from Code review to Ready to merge" e-mails you don't care about,
@@ -18,10 +19,13 @@ while you'd still like to know when something moves *New → In Progress* or
 - **Per-project overrides** — a project can have its own rule that overrides your
   global one.
 - **Three modes** (global and per project):
-  - *Send all status changes* (default — behaves like stock Redmine)
-  - *Comments only* — never e-mail me about bare status changes
-  - *Only selected transitions* — the whitelist described above
-- **Comments always come through**, regardless of the filter.
+  - *Send all changes* (default — behaves like stock Redmine)
+  - *Comments only* — comments and subject/description changes, nothing else
+  - *Selected transitions* — the above plus the whitelisted status transitions,
+    nothing else
+- **Comments and subject/description changes always come through**, regardless of
+  the filter. In the two filtering modes, other field changes (target version,
+  assignee, custom fields, attachments…) are muted.
 - **No core changes, no database migrations.** Settings are stored in the user's
   preferences; the plugin hooks the notification path via `prepend`.
 
@@ -30,15 +34,15 @@ while you'd still like to know when something moves *New → In Progress* or
 Redmine builds the recipient list for an issue update in
 `Mailer.deliver_issue_edit` from `Journal#notified_users` and
 `Journal#notified_watchers`. This plugin `prepend`s a small module to those two
-methods and removes a recipient when, for that user:
+methods and removes a recipient when, for that user's effective config (project
+override, else global):
 
-- the journal has **no comment**, and
-- it **is** a status change, and
-- that user's effective config (project override, else global) says to skip it
-  (mode *comments only*, or mode *selected transitions* and this transition isn't
-  whitelisted).
+- the mode is *comments only* or *selected transitions*, and
+- the journal has **no comment** and does **not** change the subject or description, and
+- in *selected transitions* mode, it is not a whitelisted status transition.
 
-Everything else (comments, mentions, other field changes) is left untouched.
+Mentions are left untouched. In-app notification plugins that hook the mailer see
+the same recipient list, so the filter applies to them as well.
 
 ## Compatibility
 

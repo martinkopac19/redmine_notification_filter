@@ -9,22 +9,27 @@ module RedmineNotificationFilter
       return false unless user.is_a?(User)
       # 1) komentár => notifikácia chodí vždy
       return false if journal.notes.present?
-      # 2) je to vôbec zmena stavu? ak nie (napr. len zmena assignee), nechávame ako dnes
-      detail = status_detail(journal)
-      return false unless detail
 
       cfg = config_for(user, journal.project)
-      case cfg['mode']
-      when 'all'           then false            # user chce všetky zmeny stavu
-      when 'comments_only' then true             # user chce len komentáre => preskočiť
-      else                                        # 'transitions' = whitelist prechodov
-        key = "#{detail.old_value}:#{detail.value}"
-        !truthy((cfg['transitions'] || {})[key])
-      end
+      return false if cfg['mode'] == 'all'       # user chce všetky zmeny
+      # 2) zmena názvu alebo popisu chodí v každom režime
+      return false if content_change?(journal)
+      # 3) 'comments_only' => nič iné (stav, verzia, polia, prílohy, assignee…) nechodí
+      return true if cfg['mode'] == 'comments_only'
+
+      # 4) 'transitions' => okrem toho už len vybrané prechody stavu
+      detail = status_detail(journal)
+      return true unless detail
+      key = "#{detail.old_value}:#{detail.value}"
+      !truthy((cfg['transitions'] || {})[key])
     end
 
     def status_detail(journal)
       journal.details.detect { |d| d.property == 'attr' && d.prop_key == 'status_id' }
+    end
+
+    def content_change?(journal)
+      journal.details.any? { |d| d.property == 'attr' && %w[subject description].include?(d.prop_key) }
     end
 
     # Efektívna konfigurácia pre usera v danom projekte:

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 — 2026-10-05
+- **Behaviour change:** the *Comments only* and *Selected transitions* modes now mute
+  every change except comments and subject/description changes (plus, in
+  *Selected transitions*, the whitelisted status transitions). Previously only bare
+  status changes were filtered, so changes to the target version, assignee, custom
+  fields (e.g. a merge request link) or attachments still notified everyone.
+- *Send all changes* is unchanged.
+- Updated wording of the modes in English and Czech.
+
 ## 0.1.2 — 2026-07-17
 - Hide self-transitions (e.g. New → New) from the list; a status change to the
   same status never happens, so the checkbox was meaningless.

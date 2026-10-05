@@ -1,6 +1,7 @@
 # Redmine Notification Filter (Previo)
 # Per-user, per-project filtrovanie e-mailových notifikácií o zmene stavu
-# podľa konkrétneho prechodu (odkiaľ → kam). Komentáre chodia vždy.
+# podľa konkrétneho prechodu (odkiaľ → kam). Komentáre a zmena názvu/popisu chodia vždy,
+# v režimoch comments_only/transitions nič iné (verzia, assignee, polia, prílohy…).
 # Bez zásahu do jadra — patch cez prepend, nastavenie v UserPreference.
 
 require_relative 'lib/redmine_notification_filter/filter'
@@ -9,8 +10,8 @@ require_relative 'lib/redmine_notification_filter/journal_patch'
 Redmine::Plugin.register :redmine_notification_filter do
   name 'Redmine Notification Filter'
   author 'Martin Kopáč'
-  description 'Per-user and per-project filtering of status-change e-mail notifications by exact transition (from → to). Comments always notify.'
-  version '0.1.2'
+  description 'Per-user and per-project filtering of task-change notifications: comments and subject/description changes always notify; status changes by exact transition (from → to); other field changes can be muted.'
+  version '0.2.0'
   url 'https://github.com/martinkopac19/redmine_notification_filter'
   requires_redmine version_or_higher: '5.0'
 
