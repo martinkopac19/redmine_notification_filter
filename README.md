@@ -28,7 +28,7 @@ while you'd still like to know when something moves *New → In Progress* or
 - **Comments and subject/description changes come through** in the first three
   modes. In the two middle modes, other field changes (target version,
   assignee, custom fields, attachments…) are muted.
-- **Don’t send notifications** — a checkbox under the comment (permission
+- **Mute notification** — a checkbox under the comment (permission
   `suppress_mail_issue_switch`, same as the old redmine_silencer) saves the update without
   any notification, mentions included.
 - **No core changes, no database migrations.** Settings are stored in the user's

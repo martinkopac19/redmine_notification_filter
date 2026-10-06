@@ -15,5 +15,4 @@ hu:
   text_nf_per_project_hint: "Egy adott projektre megadhat olyan szabályt, amely felülbírálja a globálisat. Felülbírálás nélkül a globális beállítás érvényes."
   text_nf_transitions_hint: "Jelölje be azokat az átmeneteket (honnan → hová), amelyekről megjegyzés nélkül is értesítést szeretne kapni. A 'Megjegyzések + tárgy/leírás módosítása + kiválasztott státusz-átmenetek' módban érvényes. (Megjegyzésekről ettől függetlenül mindig kap értesítést.)"
   label_nf_suppress_mail: "Ne küldjön értesítést"
-  text_nf_suppress_mail_tip: "Erről a megjegyzésről vagy változásról senki sem kap e-mailt vagy csengő-értesítést, még a @-tal említettek sem. Apró javításokhoz, amelyekről senkinek sem kell tudnia."
   permission_suppress_mail_issue_switch: "Értesítések elnyomása feladatváltozásoknál"

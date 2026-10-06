@@ -10,7 +10,7 @@
 - A tooltip (ⓘ) on the mode explains that *My account → Email notifications → No events*
   stops mentions too (Redmine core skips such users), so it must be any other option.
   The option names are taken from Redmine core translations.
-- **Don’t send notifications** checkbox under the comment on the issue edit form
+- **Mute notification** checkbox under the comment on the issue edit form
   (replacement for the old redmine_silencer). Shown only with the permission
   *Suppress notifications for issue updates* (`suppress_mail_issue_switch`, same name as
   redmine_silencer, so migrated roles keep it). When ticked, the journal is saved with

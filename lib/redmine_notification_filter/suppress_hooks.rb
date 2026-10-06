@@ -13,13 +13,13 @@ module RedmineNotificationFilter
       issue.is_a?(Issue) && user.allowed_to?(:suppress_mail_issue_switch, issue.project)
     end
 
-    # Políčko pod komentárom vo formulári úpravy (rich editor ho presunie k „Pridať komentár").
+    # Políčko pod komentárom vo formulári úpravy (rich editor ho presunie k „Pridať komentár"
+    # a pridá jeho dvojča k tlačidlu Potvrdiť — obe majú meno `suppress_mail`, stačí jedno zaškrtnuté).
     def view_issues_edit_notes_bottom(context = {})
       issue = context[:issue]
       return '' unless self.class.allowed?(issue)
 
-      tip = l(:text_nf_suppress_mail_tip)
-      content_tag(:span, class: 'nf-suppress', title: tip) do
+      content_tag(:span, class: 'nf-suppress') do
         check_box_tag(PARAM, '1', false, id: 'nf_suppress_mail') + ' ' +
           content_tag(:label, l(:label_nf_suppress_mail), for: 'nf_suppress_mail')
       end
