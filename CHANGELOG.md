@@ -7,6 +7,9 @@
   are all muted. Mentions are added by Redmine core separately, so they always come through.
 - New issues are filtered too in this mode (`Issue#notified_users` / `#notified_watchers`);
   the other modes leave new issues as before.
+- A tooltip (ⓘ) on the mode explains that *My account → Email notifications → No events*
+  stops mentions too (Redmine core skips such users), so it must be any other option.
+  The option names are taken from Redmine core translations.
 - Updated the intro text in all five languages (EN, CS, HU, PL, RO).
 - Selftest: `extra/selftest.rb` (runs in a rolled-back transaction, sends no mail).
 

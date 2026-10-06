@@ -23,9 +23,13 @@
     <%= radio_button_tag mode_name, 'transitions', current == 'transitions', id: "mode_#{radio_id}_transitions" %>
     <%= l(:label_nf_mode_transitions) %>
   </label>
-  <label>
+  <%# tooltip: „No events" v My account zastaví aj @zmienky (jadro, mentionable.rb) — filter to nevie obísť %>
+  <% mentions_tip = l(:text_nf_mentions_only_tip, account: l(:label_my_account),
+                      field: l(:field_mail_notification), none: l(:label_user_mail_option_none)) %>
+  <label title="<%= mentions_tip %>">
     <%= radio_button_tag mode_name, 'mentions_only', current == 'mentions_only', id: "mode_#{radio_id}_mentions" %>
     <%= l(:label_nf_mode_mentions_only) %>
+    <span class="nf-tip" aria-label="<%= mentions_tip %>">ⓘ</span>
   </label>
 </div>
 

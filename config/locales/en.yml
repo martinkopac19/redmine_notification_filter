@@ -10,6 +10,7 @@ en:
   label_nf_mode_comments_only: "Comments only – plus changes to the subject or description, nothing else"
   label_nf_mode_transitions: "Comments + subject/description changes + selected status transitions (below)"
   label_nf_mode_mentions_only: "Only mentions – only when someone @mentions you (in a comment or in the description); nothing else, not even new tasks or assignments"
+  text_nf_mentions_only_tip: "For mentions to arrive, e-mail notifications must be on: %{account} → %{field} → any option except “%{none}”. With “%{none}” Redmine sends nothing, not even mentions (neither e-mail nor the bell)."
   text_notification_filter_intro: "Choose which task changes should notify you (e-mail and the bell). In the first three modes comments and changes to the subject or description ALWAYS notify you. In the two middle modes nothing else does – status changes only if you tick them below; other fields (target version, assignee, merge request, attachments…) never. The last mode, Only mentions, is the strictest: you are notified only when someone @mentions you. This setting is personal to you."
   text_nf_per_project_hint: "For a specific project you can set a rule that overrides the global one. Without an override, the global setting applies."
   text_nf_transitions_hint: "Tick the transitions (from → to) you want to be notified about even without a comment. Applies in the 'Comments + subject/description changes + selected status transitions' mode. (Comments always notify you, regardless of this.)"

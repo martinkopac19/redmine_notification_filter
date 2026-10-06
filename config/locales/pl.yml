@@ -10,6 +10,7 @@ pl:
   label_nf_mode_comments_only: "Tylko komentarze – oraz zmiany tematu lub opisu, nic więcej"
   label_nf_mode_transitions: "Komentarze + zmiany tematu/opisu + wybrane przejścia między statusami (poniżej)"
   label_nf_mode_mentions_only: "Tylko wzmianki – tylko gdy ktoś wspomni Cię przez @ (w komentarzu lub w opisie); nic więcej, nawet nowe zagadnienia i przypisania"
+  text_nf_mentions_only_tip: "Aby wzmianki docierały, powiadomienia e-mail muszą być włączone: %{account} → %{field} → dowolna opcja oprócz „%{none}”. Przy „%{none}” Redmine nie wysyła nic, nawet wzmianek (ani e-maila, ani dzwonka)."
   text_notification_filter_intro: "Wybierz, o których zmianach zagadnień chcesz być powiadamiany (e-mail i dzwonek). W pierwszych trzech trybach komentarze oraz zmiany tematu lub opisu powiadamiają ZAWSZE. W dwóch środkowych trybach nic poza tym – zmiany statusu tylko wtedy, gdy zaznaczysz je poniżej; inne pola (wersja docelowa, przypisany do, merge request, pliki…) nigdy. Ostatni tryb, Tylko wzmianki, jest najbardziej restrykcyjny: dostaniesz powiadomienie tylko wtedy, gdy ktoś wspomni Cię przez @. To ustawienie dotyczy tylko Ciebie."
   text_nf_per_project_hint: "Dla konkretnego projektu możesz ustawić regułę, która zastępuje globalną. Bez wyjątku obowiązuje ustawienie globalne."
   text_nf_transitions_hint: "Zaznacz przejścia (z → do), o których chcesz być powiadamiany nawet bez komentarza. Dotyczy trybu 'Komentarze + zmiany tematu/opisu + wybrane przejścia między statusami'. (Komentarze powiadamiają zawsze, niezależnie od tego.)"
