@@ -154,6 +154,26 @@ begin
     else
       puts "  (v projekte nie je clen bez opravnenia — preskocene)"
     end
+
+    puts "\n[12] nova uloha: clovek zapisany v poli typu pouzivatel (Tester, PM…)"
+    cf = defined?(NotifyFieldUsers::Common) &&
+         IssueCustomField.where(id: NotifyFieldUsers::Common.user_field_ids).detect { |c| c.is_for_all? || c.projects.include?(issue.project) }
+    if cf && NotifyFieldUsers::Common.enabled?
+      mk = lambda do |subj|
+        ActionMailer::Base.deliveries.clear
+        i = Issue.new(project: issue.project, tracker: issue.tracker, author: author, subject: subj)
+        i.custom_field_values = { cf.id.to_s => u.id.to_s }
+        i.save!(validate: false)
+      end
+      set_mode(u, 'all')
+      mk.('selftest nf pole 1')
+      check("rezim Vsetko: pride (kontrola, ze pole funguje)", mailed?(u), true)
+      set_mode(u, 'mentions_only')
+      mk.('selftest nf pole 2')
+      check("Only mentions: nepride", mailed?(u), false)
+    else
+      puts "  (notify_field_users vypnuty alebo bez pola — preskocene)"
+    end
   end
 ensure
   conn.rollback_transaction
