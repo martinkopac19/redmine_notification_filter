@@ -14,3 +14,6 @@ pl:
   text_notification_filter_intro: "Wybierz, o których zmianach zagadnień chcesz być powiadamiany (e-mail i dzwonek). W pierwszych trzech trybach komentarze oraz zmiany tematu lub opisu powiadamiają ZAWSZE. W dwóch środkowych trybach nic poza tym – zmiany statusu tylko wtedy, gdy zaznaczysz je poniżej; inne pola (wersja docelowa, przypisany do, merge request, pliki…) nigdy. Ostatni tryb, Tylko wzmianki, jest najbardziej restrykcyjny: dostaniesz powiadomienie tylko wtedy, gdy ktoś wspomni Cię przez @. To ustawienie dotyczy tylko Ciebie."
   text_nf_per_project_hint: "Dla konkretnego projektu możesz ustawić regułę, która zastępuje globalną. Bez wyjątku obowiązuje ustawienie globalne."
   text_nf_transitions_hint: "Zaznacz przejścia (z → do), o których chcesz być powiadamiany nawet bez komentarza. Dotyczy trybu 'Komentarze + zmiany tematu/opisu + wybrane przejścia między statusami'. (Komentarze powiadamiają zawsze, niezależnie od tego.)"
+  label_nf_suppress_mail: "Nie wysyłaj powiadomień"
+  text_nf_suppress_mail_tip: "Nikt nie dostanie e-maila ani powiadomienia w dzwonku o tym komentarzu lub zmianie, nawet osoby wspomniane przez @. Przydaje się przy drobnych poprawkach, o których nikt nie musi wiedzieć."
+  permission_suppress_mail_issue_switch: "Wyłączanie powiadomień przy zmianach zagadnień"

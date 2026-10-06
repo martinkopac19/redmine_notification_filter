@@ -14,3 +14,6 @@ cs:
   text_notification_filter_intro: "Zde si nastavíš, o kterých změnách úkolů chceš dostávat notifikace (e-mail i zvoneček). V prvních třech režimech ti komentáře a změny názvu nebo popisu přijdou VŽDY. Ve dvou prostředních režimech už nic jiného – změny stavu jen ty, které níže zaškrtneš; ostatní pole (cílová verze, řešitel, merge request, přílohy…) nikdy. Poslední režim, Jen zmínky, je nejpřísnější: přijde ti jen to, kde tě někdo zmíní přes @. Nastavení je jen tvoje osobní."
   text_nf_per_project_hint: "Pro konkrétní projekt můžeš nastavit vlastní pravidlo, které přebije globální. Bez výjimky se použije globální nastavení."
   text_nf_transitions_hint: "Zaškrtni přechody (odkud → kam), o kterých chceš být informován i bez komentáře. Platí v režimu „Komentáře + změny názvu/popisu + jen vybrané přechody stavů“. (Komentáře chodí vždy, nezávisle na tomto.)"
+  label_nf_suppress_mail: "Neposílat notifikace"
+  text_nf_suppress_mail_tip: "O tomto komentáři ani změně nepřijde nikomu e-mail ani notifikace ve zvonečku, ani lidem zmíněným přes @. Hodí se na drobné opravy, o kterých nikdo nemusí vědět."
+  permission_suppress_mail_issue_switch: "Potlačit notifikace u změn úkolů"

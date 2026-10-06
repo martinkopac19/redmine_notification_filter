@@ -30,17 +30,24 @@ def set_mode(user, mode, projects = {})
 end
 
 # zmena ulohy tak, ako ju robi IssuesController (init_journal + save)
-def edit!(issue_id, author, notes: nil, attrs: {})
+# `params` → ako controller zavolá aj hook controller_issues_edit_before_save (políčko „Neposílat notifikace")
+def edit!(issue_id, author, notes: nil, attrs: {}, params: nil)
   issue = Issue.find(issue_id)
   issue.init_journal(author, notes)
   issue.safe_attributes = attrs.stringify_keys
   ActionMailer::Base.deliveries.clear
+  if params
+    User.current = author
+    Redmine::Hook.call_hook(:controller_issues_edit_before_save,
+                            params: ActionController::Parameters.new(params), issue: issue,
+                            time_entry: nil, journal: issue.current_journal)
+  end
   raise "save zlyhal: #{issue.errors.full_messages.join(', ')}" unless issue.save
   issue
 end
 
 puts "=" * 72
-puts "Selftest: notification filter — rezim Only mentions"
+puts "Selftest: notification filter — rezim Only mentions, Neposilat notifikace"
 puts "=" * 72
 
 check("Issue ma IssuePatch", Issue.ancestors.include?(RedmineNotificationFilter::IssuePatch), true)
@@ -122,6 +129,31 @@ begin
     set_mode(u, 'all', { issue.project_id.to_s => { 'mode' => 'mentions_only', 'transitions' => {} } })
     edit!(issue.id, author, notes: 'dalsi komentar')
     check("globalne Vsetko, projekt Only mentions: nepride", mailed?(u), false)
+
+    puts "
+[9] Neposilat notifikace (autor ma opravnenie)"
+    set_mode(u, 'all'); set_mode(v, 'all')
+    check("opravnenie je zaregistrovane", Redmine::AccessControl.permission(:suppress_mail_issue_switch).present?, true)
+    check("autor ho ma", RedmineNotificationFilter::SuppressHooks.allowed?(issue, author), true)
+    nj = Journal.where(journalized: issue).count
+    edit!(issue.id, author, notes: "ticho @#{u.login}", params: { 'suppress_mail' => '1' })
+    check("komentar sa ulozil", Journal.where(journalized: issue).count, nj + 1)
+    check("ziadny mail nikomu (ani zmienenemu)", ActionMailer::Base.deliveries.size, 0)
+
+    puts "
+[10] to iste bez policka"
+    edit!(issue.id, author, notes: "nahlas @#{u.login}", params: {})
+    check("maily odisli", mailed?(u) && mailed?(v), true)
+
+    puts "
+[11] clovek bez opravnenia: policko sa ignoruje"
+    nope = issue.project.users.active.to_a.detect { |x| x.mail.present? && !x.admin? && issue.visible?(x) && issue.notes_addable?(x) && !RedmineNotificationFilter::SuppressHooks.allowed?(issue, x) && x.id != u.id }
+    if nope
+      edit!(issue.id, nope, notes: "pokus o ticho @#{u.login}", params: { 'suppress_mail' => '1' })
+      check("mail odisiel napriek policku", mailed?(u), true)
+    else
+      puts "  (v projekte nie je clen bez opravnenia — preskocene)"
+    end
   end
 ensure
   conn.rollback_transaction

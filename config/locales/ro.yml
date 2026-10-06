@@ -14,3 +14,6 @@ ro:
   text_notification_filter_intro: "Alegeți ce modificări ale tichetelor vă trimit notificări (e-mail și clopoțel). În primele trei moduri, comentariile și modificările subiectului sau descrierii vă notifică ÎNTOTDEAUNA. În cele două moduri din mijloc, nimic altceva – modificările de stare doar dacă le bifați mai jos; celelalte câmpuri (versiune țintă, atribuit, merge request, fișiere…) niciodată. Ultimul mod, Doar mențiuni, este cel mai strict: primiți notificări doar când cineva vă menționează cu @. Această setare este personală."
   text_nf_per_project_hint: "Pentru un anumit proiect puteți seta o regulă care o înlocuiește pe cea globală. Fără excepție, se aplică setarea globală."
   text_nf_transitions_hint: "Bifați tranzițiile (din → în) despre care doriți să fiți notificat chiar și fără comentariu. Se aplică în modul „Comentarii + modificări ale subiectului/descrierii + tranzițiile de stare selectate”. (Comentariile vă notifică întotdeauna, indiferent de aceasta.)"
+  label_nf_suppress_mail: "Nu trimite notificări"
+  text_nf_suppress_mail_tip: "Nimeni nu primește e-mail sau notificare în clopoțel despre acest comentariu sau această modificare, nici persoanele menționate cu @. Util pentru corecturi mici despre care nu trebuie să știe nimeni."
+  permission_suppress_mail_issue_switch: "Suprimarea notificărilor la modificarea tichetelor"

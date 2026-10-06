@@ -3,11 +3,13 @@
 # podľa konkrétneho prechodu (odkiaľ → kam). Komentáre a zmena názvu/popisu chodia vždy,
 # v režimoch comments_only/transitions nič iné (verzia, assignee, polia, prílohy…);
 # v režime mentions_only z úloh chodia len @zmienky.
+# Políčko „Neposílat notifikace" pri komentári (oprávnenie suppress_mail_issue_switch).
 # Bez zásahu do jadra — patch cez prepend, nastavenie v UserPreference.
 
 require_relative 'lib/redmine_notification_filter/filter'
 require_relative 'lib/redmine_notification_filter/journal_patch'
 require_relative 'lib/redmine_notification_filter/issue_patch'
+require_relative 'lib/redmine_notification_filter/suppress_hooks'
 
 Redmine::Plugin.register :redmine_notification_filter do
   name 'Redmine Notification Filter'
@@ -21,6 +23,11 @@ Redmine::Plugin.register :redmine_notification_filter do
        { controller: 'notification_filter', action: 'show' },
        caption: :label_notification_filter,
        if: proc { User.current.logged? }
+
+  # Rovnaký názov ako v starom redmine_silencer → roly z migrovanej DB ho už majú.
+  project_module :issue_tracking do
+    permission :suppress_mail_issue_switch, {}
+  end
 end
 
 # Patch aplikujeme priamo pri načítaní (rovnaký vzor ako redmine_checklists).
