@@ -75,7 +75,7 @@ class NotificationFilterController < ApplicationController
   end
 
   def sanitize_mode(val, allow_inherit:)
-    allowed = %w[all comments_only transitions]
+    allowed = %w[all comments_only transitions mentions_only]
     allowed << 'inherit' if allow_inherit
     allowed.include?(val) ? val : (allow_inherit ? 'inherit' : 'all')
   end

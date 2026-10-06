@@ -18,13 +18,15 @@ while you'd still like to know when something moves *New → In Progress* or
   source status).
 - **Per-project overrides** — a project can have its own rule that overrides your
   global one.
-- **Three modes** (global and per project):
+- **Four modes** (global and per project):
   - *Send all changes* (default — behaves like stock Redmine)
   - *Comments only* — comments and subject/description changes, nothing else
   - *Selected transitions* — the above plus the whitelisted status transitions,
     nothing else
-- **Comments and subject/description changes always come through**, regardless of
-  the filter. In the two filtering modes, other field changes (target version,
+  - *Only mentions* — only when someone @mentions you (in a comment or in the
+    description); nothing else from issues, not even new issues or assignments
+- **Comments and subject/description changes come through** in the first three
+  modes. In the two middle modes, other field changes (target version,
   assignee, custom fields, attachments…) are muted.
 - **No core changes, no database migrations.** Settings are stored in the user's
   preferences; the plugin hooks the notification path via `prepend`.
@@ -41,7 +43,12 @@ override, else global):
 - the journal has **no comment** and does **not** change the subject or description, and
 - in *selected transitions* mode, it is not a whitelisted status transition.
 
-Mentions are left untouched. In-app notification plugins that hook the mailer see
+In *only mentions* mode the user is removed from every update, and `Issue#notified_users` /
+`Issue#notified_watchers` are filtered too, so new issues (`Mailer.deliver_issue_add`) stay
+silent as well.
+
+Mentions are left untouched: core adds them separately (`notified_mentions`), so an
+@mention always notifies, in every mode. In-app notification plugins that hook the mailer see
 the same recipient list, so the filter applies to them as well.
 
 ## Compatibility

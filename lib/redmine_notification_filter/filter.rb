@@ -7,10 +7,13 @@ module RedmineNotificationFilter
     # false => poslať (pôvodné správanie)
     def skip?(user, journal)
       return false unless user.is_a?(User)
-      # 1) komentár => notifikácia chodí vždy
-      return false if journal.notes.present?
 
       cfg = config_for(user, journal.project)
+      # 0) 'mentions_only' => z úprav úlohy nechodí NIČ, ani komentár. @zmienky prídu aj tak:
+      #    jadro ich pridáva zvlášť (`notified_mentions`), mimo zoznamov, ktoré tu filtrujeme.
+      return true if cfg['mode'] == 'mentions_only'
+      # 1) komentár => notifikácia chodí vždy
+      return false if journal.notes.present?
       return false if cfg['mode'] == 'all'       # user chce všetky zmeny
       # 2) zmena názvu alebo popisu chodí v každom režime
       return false if content_change?(journal)
@@ -22,6 +25,12 @@ module RedmineNotificationFilter
       return true unless detail
       key = "#{detail.old_value}:#{detail.value}"
       !truthy((cfg['transitions'] || {})[key])
+    end
+
+    # Nová úloha (Mailer.deliver_issue_add). Ostatné režimy ju nefiltrujú (ako doteraz),
+    # 'mentions_only' áno — ani nová úloha, ani priradenie nie sú zmienka.
+    def skip_issue_add?(user, issue)
+      user.is_a?(User) && config_for(user, issue.project)['mode'] == 'mentions_only'
     end
 
     def status_detail(journal)

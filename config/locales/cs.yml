@@ -9,6 +9,7 @@ cs:
   label_nf_mode_all: "Posílat všechny změny (jako dosud)"
   label_nf_mode_comments_only: "Jen komentáře – a změny názvu nebo popisu, nic jiného"
   label_nf_mode_transitions: "Komentáře + změny názvu/popisu + jen vybrané přechody stavů (níže)"
-  text_notification_filter_intro: "Zde si nastavíš, o kterých změnách úkolů chceš dostávat notifikace (e-mail i zvoneček). Komentáře a změny názvu nebo popisu ti přijdou VŽDY, ve všech režimech. V dalších dvou režimech už nic jiného – změny stavu jen ty, které níže zaškrtneš; ostatní pole (cílová verze, řešitel, merge request, přílohy…) nikdy. Nastavení je jen tvoje osobní."
+  label_nf_mode_mentions_only: "Jen zmínky – jen když tě někdo zmíní přes @ (v komentáři nebo v popisu); nic jiného, ani nové úkoly a přiřazení"
+  text_notification_filter_intro: "Zde si nastavíš, o kterých změnách úkolů chceš dostávat notifikace (e-mail i zvoneček). V prvních třech režimech ti komentáře a změny názvu nebo popisu přijdou VŽDY. Ve dvou prostředních režimech už nic jiného – změny stavu jen ty, které níže zaškrtneš; ostatní pole (cílová verze, řešitel, merge request, přílohy…) nikdy. Poslední režim, Jen zmínky, je nejpřísnější: přijde ti jen to, kde tě někdo zmíní přes @. Nastavení je jen tvoje osobní."
   text_nf_per_project_hint: "Pro konkrétní projekt můžeš nastavit vlastní pravidlo, které přebije globální. Bez výjimky se použije globální nastavení."
   text_nf_transitions_hint: "Zaškrtni přechody (odkud → kam), o kterých chceš být informován i bez komentáře. Platí v režimu „Komentáře + změny názvu/popisu + jen vybrané přechody stavů“. (Komentáře chodí vždy, nezávisle na tomto.)"

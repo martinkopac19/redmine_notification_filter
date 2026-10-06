@@ -1,17 +1,19 @@
 # Redmine Notification Filter (Previo)
 # Per-user, per-project filtrovanie e-mailových notifikácií o zmene stavu
 # podľa konkrétneho prechodu (odkiaľ → kam). Komentáre a zmena názvu/popisu chodia vždy,
-# v režimoch comments_only/transitions nič iné (verzia, assignee, polia, prílohy…).
+# v režimoch comments_only/transitions nič iné (verzia, assignee, polia, prílohy…);
+# v režime mentions_only z úloh chodia len @zmienky.
 # Bez zásahu do jadra — patch cez prepend, nastavenie v UserPreference.
 
 require_relative 'lib/redmine_notification_filter/filter'
 require_relative 'lib/redmine_notification_filter/journal_patch'
+require_relative 'lib/redmine_notification_filter/issue_patch'
 
 Redmine::Plugin.register :redmine_notification_filter do
   name 'Redmine Notification Filter'
   author 'Martin Kopáč'
-  description 'Per-user and per-project filtering of task-change notifications: comments and subject/description changes always notify; status changes by exact transition (from → to); other field changes can be muted.'
-  version '0.2.0'
+  description 'Per-user and per-project filtering of task-change notifications: comments and subject/description changes always notify; status changes by exact transition (from → to); other field changes can be muted; or only @mentions.'
+  version '0.3.0'
   url 'https://github.com/martinkopac19/redmine_notification_filter'
   requires_redmine version_or_higher: '5.0'
 
@@ -26,4 +28,7 @@ end
 # `to_prepare` sa tu nespúšťal v správnom čase.
 unless Journal.ancestors.include?(RedmineNotificationFilter::JournalPatch)
   Journal.prepend(RedmineNotificationFilter::JournalPatch)
+end
+unless Issue.ancestors.include?(RedmineNotificationFilter::IssuePatch)
+  Issue.prepend(RedmineNotificationFilter::IssuePatch)
 end

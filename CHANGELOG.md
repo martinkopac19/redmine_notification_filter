@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0 — 2026-10-06
+- New mode **Only mentions** (last in the list, global and per project): you are
+  notified only when someone @mentions you, in a comment or in the description.
+  Comments, subject/description changes, status changes, assignments and new issues
+  are all muted. Mentions are added by Redmine core separately, so they always come through.
+- New issues are filtered too in this mode (`Issue#notified_users` / `#notified_watchers`);
+  the other modes leave new issues as before.
+- Updated the intro text in all five languages (EN, CS, HU, PL, RO).
+- Selftest: `extra/selftest.rb` (runs in a rolled-back transaction, sends no mail).
+
 ## 0.2.0 — 2026-10-05
 - **Behaviour change:** the *Comments only* and *Selected transitions* modes now mute
   every change except comments and subject/description changes (plus, in
