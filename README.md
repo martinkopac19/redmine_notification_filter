@@ -30,7 +30,7 @@ while you'd still like to know when something moves *New → In Progress* or
   assignee, custom fields, attachments…) are muted.
 - **Mute notification** — a checkbox under the comment (permission
   `suppress_mail_issue_switch`, same as the old redmine_silencer) saves the update without
-  any notification, mentions included.
+  any notification, mentions included. Also in bulk edit, next to *Private notes*.
 - **No core changes, no database migrations.** Settings are stored in the user's
   preferences; the plugin hooks the notification path via `prepend`.
 

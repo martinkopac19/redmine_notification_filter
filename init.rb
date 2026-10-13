@@ -15,7 +15,7 @@ Redmine::Plugin.register :redmine_notification_filter do
   name 'Redmine Notification Filter'
   author 'Martin Kopáč'
   description 'Per-user and per-project filtering of task-change notifications: comments and subject/description changes always notify; status changes by exact transition (from → to); other field changes can be muted; or only @mentions.'
-  version '0.3.0'
+  version '0.3.1'
   url 'https://github.com/martinkopac19/redmine_notification_filter'
   requires_redmine version_or_higher: '5.0'
 

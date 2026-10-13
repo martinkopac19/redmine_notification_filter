@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 — 2026-10-13
+- **Mute notification** in bulk edit too: the checkbox sits under the notes, on the left,
+  with *Private notes* moved to the right (same as under the comment on the issue page).
+  Not shown when copying issues. Each issue is checked against the permission
+   in its own project.
+
 ## 0.3.0 — 2026-10-06
 - New mode **Only mentions** (last in the list, global and per project): you are
   notified only when someone @mentions you, in a comment or in the description.
